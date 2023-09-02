@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CyclicGuard : AIPatrol
 {
+    private int currentPatrolIndex = 0;
+    public float movementSpeed = 5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,11 +16,10 @@ public class CyclicGuard : AIPatrol
     // Update is called once per frame
     void Update()
     {
-        
+        ExecuteProfile();
+        DetectPlayer();
     }
-    private List<Vector3> patrolPoints = new List<Vector3>();
-    private int currentPatrolIndex = 0;
-
+   
     public override void ExecuteProfile()
     {
         Patrol();
@@ -30,19 +32,39 @@ public class CyclicGuard : AIPatrol
 
     public override void DetectPlayer()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, viewDistance);
-        foreach (var collider in colliders)
+        if (!playerDetected)
         {
-            if (collider.CompareTag("Player"))
+            Collider[] colliders = Physics.OverlapSphere(transform.position, viewDistance);
+            foreach (var collider in colliders)
             {
-                OnPlayerDetected();
-                break;
-            }
+                if (collider.CompareTag("Player"))
+                {
+                    playerDetected = true;
+                    OnPlayerDetected();
+                    break;
+                }
+            } 
         }
     }
 
     private void Patrol()
     {
+        if (patrolPoints.Length == 0)
+            return;
 
+        Transform targetPoint = patrolPoints[currentPatrolIndex];
+        Vector3 moveDirection = (targetPoint.position - transform.position).normalized;
+
+        transform.Translate(moveDirection * movementSpeed * Time.deltaTime);
+
+        float distanceToTarget = Vector3.Distance(transform.position, targetPoint.position);
+        if (distanceToTarget < 0.1f)
+        {
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+            if (currentPatrolIndex == 0)
+            {
+                currentPatrolIndex = 0;
+            }
+        }
     }
 }

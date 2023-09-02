@@ -4,7 +4,10 @@ using UnityEngine;
 
 public abstract class AIPatrol : MonoBehaviour
 {
-    public float viewDistance = 10f;
+    public float viewDistance = 5f;
+    public Transform[] patrolPoints; 
+    public bool playerDetected = false;
+
     public abstract void ExecuteProfile();
     public abstract void OnPlayerDetected();
     public abstract void DetectPlayer();

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Guard : AIPatrol
 {
+    private float rotationTimer = 0f;
+    private float rotationInterval = 3f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,10 +16,9 @@ public class Guard : AIPatrol
     // Update is called once per frame
     void Update()
     {
-        
+        ExecuteProfile();
     }
-    private float rotationTimer = 0f;
-    private float rotationInterval = 3f;
+
 
     public override void ExecuteProfile()
     {
@@ -31,14 +33,18 @@ public class Guard : AIPatrol
 
     public override void DetectPlayer()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, viewDistance);
-        foreach (var collider in colliders)
+        if (!playerDetected)
         {
-            if (collider.CompareTag("Player"))
+            Collider[] colliders = Physics.OverlapSphere(transform.position, viewDistance);
+            foreach (var collider in colliders)
             {
-                OnPlayerDetected();
-                break;
-            }
+                if (collider.CompareTag("Player"))
+                {
+                    playerDetected = true;
+                    OnPlayerDetected();
+                    break;
+                }
+            } 
         }
     }
 
