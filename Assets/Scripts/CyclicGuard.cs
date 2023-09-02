@@ -49,10 +49,10 @@ public class CyclicGuard : AIPatrol
 
     private void Patrol()
     {
-        if (patrolPoints.Length == 0)
+        if (waypoints.Length == 0)
             return;
 
-        Transform targetPoint = patrolPoints[currentPatrolIndex];
+        Transform targetPoint = waypoints[currentPatrolIndex];
         Vector3 moveDirection = (targetPoint.position - transform.position).normalized;
 
         transform.Translate(moveDirection * movementSpeed * Time.deltaTime);
@@ -60,7 +60,7 @@ public class CyclicGuard : AIPatrol
         float distanceToTarget = Vector3.Distance(transform.position, targetPoint.position);
         if (distanceToTarget < 0.1f)
         {
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+            currentPatrolIndex = (currentPatrolIndex + 1) % waypoints.Length;
             if (currentPatrolIndex == 0)
             {
                 currentPatrolIndex = 0;

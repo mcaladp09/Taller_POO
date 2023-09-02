@@ -50,10 +50,10 @@ public class PingPongGuard : AIPatrol
 
     private void Patrol()
     {
-        if (patrolPoints.Length == 0)
+        if (waypoints.Length == 0)
             return;
 
-        Transform targetPoint = patrolPoints[currentPatrolIndex];
+        Transform targetPoint = waypoints[currentPatrolIndex];
         Vector3 moveDirection = (targetPoint.position - transform.position).normalized;
 
         transform.Translate(moveDirection * movementSpeed * Time.deltaTime);
@@ -63,14 +63,14 @@ public class PingPongGuard : AIPatrol
         {
             if (isMovingForward)
             {
-                currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+                currentPatrolIndex = (currentPatrolIndex + 1) % waypoints.Length;
 
-                if (currentPatrolIndex == patrolPoints.Length-1)
+                if (currentPatrolIndex == waypoints.Length-1)
                     isMovingForward = false;
             }
             else
             {
-                currentPatrolIndex = (currentPatrolIndex - 1 + patrolPoints.Length) % patrolPoints.Length;
+                currentPatrolIndex = (currentPatrolIndex - 1 + waypoints.Length) % waypoints.Length;
                 if (currentPatrolIndex == 0)
                     isMovingForward = true;
 
