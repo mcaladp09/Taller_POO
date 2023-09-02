@@ -5,7 +5,7 @@ using UnityEngine;
 public class Guard : AIPatrol
 {
     private float rotationTimer = 0f;
-    private float rotationInterval = 3f;
+    private float waitForTurn = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +51,7 @@ public class Guard : AIPatrol
     private void RotateGuard()
     {
         rotationTimer += Time.deltaTime;
-        if (rotationTimer >= rotationInterval)
+        if (rotationTimer >= waitForTurn)
         {
             transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
             rotationTimer = 0f;

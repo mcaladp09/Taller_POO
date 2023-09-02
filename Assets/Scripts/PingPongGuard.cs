@@ -64,13 +64,14 @@ public class PingPongGuard : AIPatrol
             if (isMovingForward)
             {
                 currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
-                if (currentPatrolIndex == 0)
+
+                if (currentPatrolIndex == patrolPoints.Length-1)
                     isMovingForward = false;
             }
             else
             {
                 currentPatrolIndex = (currentPatrolIndex - 1 + patrolPoints.Length) % patrolPoints.Length;
-                if (currentPatrolIndex == patrolPoints.Length - 1)
+                if (currentPatrolIndex == 0)
                     isMovingForward = true;
 
             }
