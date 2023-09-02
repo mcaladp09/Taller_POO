@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewDistance: 10
-  patrolPoints: []
+  waypoints: []
   playerDetected: 0
 --- !u!65 &901374369
 BoxCollider:
@@ -571,7 +571,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewDistance: 5
-  patrolPoints: []
+  waypoints:
+  - {fileID: 1084023598}
+  - {fileID: 2011246083}
+  - {fileID: 617364888}
+  - {fileID: 1866827165}
   playerDetected: 0
   movementSpeed: 5
 --- !u!65 &1258523807
@@ -953,7 +957,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewDistance: 5
-  patrolPoints: []
+  waypoints:
+  - {fileID: 2018271883}
+  - {fileID: 854048782}
+  - {fileID: 1901884331}
+  - {fileID: 2097222605}
   playerDetected: 0
   movementSpeed: 5
 --- !u!65 &1955457163
